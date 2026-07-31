@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+export const prerender = true;
+
+const t = useTranslations('es');
+---
+
+<BaseLayout title={t('footer.privacy')} description="Política de privacidad de Cartacuba Tours & Travels.">
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <p class="inline-block rounded border border-sand-400/40 bg-ink-900 px-3 py-1 text-xs text-sand-300">
+      Contenido de muestra — política de marcador de posición para revisión del MVP; debe ser
+      revisada por asesoría legal calificada antes del lanzamiento.
+    </p>
+    <h1 class="mt-4 font-display text-3xl text-paper-50">Política de Privacidad</h1>
+    <p class="mt-2 text-sm text-stone-500">Última actualización: 31 de julio de 2026</p>
+
+    <div class="mt-8 flex flex-col gap-8 text-stone-400">
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Quiénes somos</h2>
+        <p class="mt-2">
+          Cartacuba Tours & Travels ("nosotros"). Contacto: fcg69.cloud.gcp@gmail.com. [Dirección
+          comercial — marcador de posición, por confirmar.]
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Qué recopilamos</h2>
+        <p class="mt-2">
+          Envíos del formulario de contacto (nombre, correo, categoría, mensaje) y del formulario de
+          consulta de reserva (nombre, correo, teléfono, preferencias de viaje, número de
+          viajeros). No recopilamos datos de tarjetas de pago en este sitio — aquí no se procesa
+          ningún pago.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Procesadores de datos que utilizamos</h2>
+        <ul class="mt-2 list-inside list-disc">
+          <li><strong>Resend</strong> — entrega los correos del formulario de contacto y consultas de reserva.</li>
+          <li>
+            <strong>Cloudflare</strong> — alojamiento, mitigación de bots (Turnstile) y limitación de
+            solicitudes para este sitio.
+          </li>
+          <li>
+            <strong>Stripe</strong> — procesador de pagos planificado para la Fase 2 de la excursión
+            de un día; aún no integrado en este sitio.
+          </li>
+          <li>
+            <strong>Checkfront (o alternativa confirmada)</strong> — proveedor de widget de reserva
+            planificado para la Fase 2 del tour de varios días; aún no integrado, proveedor no
+            confirmado.
+          </li>
+        </ul>
+        <p class="mt-2">
+          No utilizamos análisis ni píxeles de marketing en este sitio. Si eso cambia, esta política
+          nombrará la herramienta antes de agregarla.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Retención</h2>
+        <p class="mt-2">
+          Los envíos de formularios de contacto y consultas de reserva se conservan hasta 24 meses
+          para permitir el seguimiento de reservas y soporte, y luego se eliminan. Puede solicitar
+          la eliminación anticipada en cualquier momento escribiéndonos.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Sus derechos</h2>
+        <p class="mt-2">
+          Según su ubicación, puede tener derechos de acceso, corrección o eliminación de sus datos
+          personales, y de oponerse o restringir su procesamiento. Contáctenos para ejercer estos
+          derechos.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Cookies</h2>
+        <p class="mt-2">
+          Consulte nuestra <a href="/es/cookies/" class="text-terracotta-400 underline underline-offset-2 hover:decoration-2">Política de Cookies</a>
+          para más detalles sobre qué almacenamos y cómo funciona el consentimiento.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

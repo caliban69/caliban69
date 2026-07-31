@@ -1,0 +1,38 @@
+@import './theme.css';
+
+@layer base {
+  html {
+    background-color: var(--color-ink-950);
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-paper-100);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-paper-50);
+    letter-spacing: -0.01em;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-sand-300);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-terracotta-500);
+    color: var(--color-paper-50);
+  }
+}

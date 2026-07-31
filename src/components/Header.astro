@@ -1,0 +1,96 @@
+---
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+const locale = getLangFromUrl(Astro.url);
+const t = useTranslations(locale);
+const translatePath = useTranslatedPath(locale);
+
+const navItems = [
+  { href: translatePath('/trips/'), label: t('nav.trips') },
+  { href: translatePath('/gallery/'), label: t('nav.gallery') },
+  { href: translatePath('/about/'), label: t('nav.about') },
+  { href: translatePath('/contact/'), label: t('nav.contact') },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  id="site-header"
+  class="sticky top-0 z-40 border-b border-ink-700 bg-ink-950/95 backdrop-blur supports-[backdrop-filter]:bg-ink-950/80"
+>
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+    <a href={translatePath('/')} class="flex flex-col leading-none">
+      <span class="font-display text-lg font-medium text-paper-50">{t('brand.name')}</span>
+      <span class="text-xs tracking-wide text-sand-300">{t('brand.motto')}</span>
+    </a>
+
+    <nav aria-label="Primary" class="hidden items-center gap-8 md:flex">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-sm text-paper-100 transition-colors hover:text-terracotta-400 aria-[current=page]:text-terracotta-400"
+            aria-current={currentPath.startsWith(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <LanguageSwitcher locale={locale} />
+    </nav>
+
+    <button
+      id="nav-toggle"
+      type="button"
+      class="flex items-center gap-2 text-sm text-paper-100 md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      data-label-open={t('nav.menu')}
+      data-label-close={t('nav.close')}
+    >
+      <span id="nav-toggle-label">{t('nav.menu')}</span>
+    </button>
+  </div>
+
+  <nav
+    id="mobile-nav"
+    aria-label="Primary"
+    data-open="false"
+    class="hidden flex-col gap-1 border-t border-ink-700 bg-ink-950 px-4 pb-4 data-[open=true]:flex md:hidden"
+  >
+    {
+      navItems.map((item) => (
+        <a
+          href={item.href}
+          class="rounded px-2 py-3 text-paper-100 hover:bg-ink-800 hover:text-terracotta-400 aria-[current=page]:text-terracotta-400"
+          aria-current={currentPath.startsWith(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+    <div class="pt-2">
+      <LanguageSwitcher locale={locale} />
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-nav');
+  const label = document.getElementById('nav-toggle-label');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = menu?.dataset.open === 'true';
+    const willOpen = !isOpen;
+    menu?.setAttribute('data-open', String(willOpen));
+    toggle.setAttribute('aria-expanded', String(willOpen));
+    if (label) {
+      label.textContent = willOpen
+        ? (toggle.dataset.labelClose ?? '')
+        : (toggle.dataset.labelOpen ?? '');
+    }
+  });
+</script>

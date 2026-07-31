@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import TripHero from './trips/TripHero.astro';
+import TripDetails from './trips/TripDetails.astro';
+import ItineraryAccordion from './trips/ItineraryAccordion.tsx';
+import BookingInquiryForm from './forms/BookingInquiryForm.tsx';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
+interface Props {
+  trip: CollectionEntry<'trips'>;
+}
+
+const { trip } = Astro.props;
+const locale = getLangFromUrl(Astro.url);
+const t = useTranslations(locale);
+const translatePath = useTranslatedPath(locale);
+const slug = trip.id.split('/').pop()!;
+const { Content } = await render(trip);
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
+---
+
+<TripHero trip={trip} />
+
+<div class="mx-auto max-w-3xl px-4 pt-10 sm:px-6">
+  <div class="prose-invert max-w-none text-paper-100">
+    <Content />
+  </div>
+
+  <div class="mt-4">
+    <h2 class="font-display text-xl text-paper-50">{t('trip.guide')}</h2>
+    <p class="mt-2 text-sm text-stone-400">
+      {trip.data.guideName} —
+      <a href={translatePath('/about/')} class="text-terracotta-400 underline underline-offset-2 hover:decoration-2">
+        {t('trip.guide.readBio')}
+      </a>
+    </p>
+  </div>
+
+  <div class="mt-8">
+    <h2 class="font-display text-xl text-paper-50">{t('trip.accommodation')}</h2>
+    <p class="mt-2 text-sm text-stone-400">{trip.data.accommodationStyle}</p>
+  </div>
+
+  <div class="mt-8">
+    <h2 class="font-display text-xl text-paper-50">{t('trip.depositPolicy')}</h2>
+    <p class="mt-2 text-sm text-stone-400">{trip.data.depositPolicy}</p>
+  </div>
+</div>
+
+<div class="mx-auto max-w-3xl px-4 pt-10 sm:px-6">
+  <h2 class="font-display text-xl text-paper-50">{t('trip.itinerary')}</h2>
+  <div class="mt-4">
+    <ItineraryAccordion client:visible days={trip.data.itinerary ?? []} dayLabel={t('trip.itinerary.day')} />
+  </div>
+</div>
+
+<TripDetails trip={trip} />
+
+<div id="booking-widget" class="mx-auto max-w-3xl px-4 pb-16 sm:px-6">
+  <h2 class="mb-4 font-display text-xl text-paper-50">{t('trip.bookingWidget.heading')}</h2>
+  <!--
+    PHASE 2: replace this lead-capture <BookingInquiryForm> with the live
+    Checkfront (or confirmed alternative vendor) booking widget embed once
+    a vendor is selected. This container id (`#booking-widget`) is the
+    defined embed boundary for that swap.
+  -->
+  <BookingInquiryForm
+    client:visible
+    locale={locale}
+    turnstileSiteKey={turnstileSiteKey}
+    tripSlug={slug}
+    tripTitle={trip.data.title}
+  />
+</div>
