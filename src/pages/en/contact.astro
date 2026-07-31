@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactForm from '../../components/forms/ContactForm.tsx';
+import { useTranslations } from '../../i18n/utils';
+
+export const prerender = true;
+
+const t = useTranslations('en');
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
+---
+
+<BaseLayout title={t('contact.heading')} description={t('contact.intro')}>
+  <section class="mx-auto max-w-2xl px-4 py-16 sm:px-6">
+    <h1 class="font-display text-3xl text-paper-50">{t('contact.heading')}</h1>
+    <p class="mt-3 text-stone-400">{t('contact.intro')}</p>
+
+    <div class="mt-10">
+      <ContactForm client:visible locale="en" turnstileSiteKey={turnstileSiteKey} />
+    </div>
+  </section>
+</BaseLayout>

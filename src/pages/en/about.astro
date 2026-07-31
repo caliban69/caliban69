@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+export const prerender = true;
+
+const t = useTranslations('en');
+---
+
+<BaseLayout title={t('about.heading')} description={t('home.sustainability.body')}>
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <p class="inline-block rounded border border-sand-400/40 bg-ink-900 px-3 py-1 text-xs text-sand-300">
+      {t('trip.sampleContentNotice')}
+    </p>
+    <h1 class="mt-4 font-display text-3xl text-paper-50">{t('about.heading')}</h1>
+
+    <div class="mt-10">
+      <h2 class="font-display text-xl text-terracotta-400">{t('about.credibility.heading')}</h2>
+      <p class="mt-3 text-stone-400">
+        Cartacuba Tours & Travels is designed and led by a PhD ornithologist with field research
+        experience across Cuba's endemic-rich habitats. Every itinerary reflects that scientific
+        grounding — species identification you can trust, and route planning based on where the
+        birds actually are each season, not a generic tourist circuit.
+      </p>
+      <p class="mt-3 text-sm text-stone-500">
+        [Sample placeholder bio — Fred to provide the operator's real biography, credentials, and
+        photo before launch.]
+      </p>
+    </div>
+
+    <div class="mt-10">
+      <h2 class="font-display text-xl text-terracotta-400">{t('about.sustainability.heading')}</h2>
+      <p class="mt-3 text-stone-400">
+        We keep groups small, favor community-run accommodation over international chains, and
+        share revenue directly with the local guides and conservation partners who make each trip
+        possible. Community-based tourism isn't a marketing label here — it's how each itinerary
+        is built, from the ground up.
+      </p>
+    </div>
+
+    <div class="mt-10">
+      <h2 class="font-display text-xl text-terracotta-400">{t('about.ecotourism.heading')}</h2>
+      <p class="mt-3 text-stone-400">
+        We hold our operations to the certification standards set by Ecotourism Australia, even
+        while operating outside Australia — because a credible, third-party sustainability
+        standard should mean the same thing everywhere it's applied.
+      </p>
+      <p class="mt-3 text-sm text-stone-500">
+        [Sample placeholder — link to or note on formal Ecotourism Australia certification status
+        to be confirmed with Fred before launch.]
+      </p>
+    </div>
+  </section>
+</BaseLayout>

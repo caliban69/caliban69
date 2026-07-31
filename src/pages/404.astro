@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
+export const prerender = true;
+
+// A 404 can be hit under any locale prefix (or with none at all), so this
+// detects the locale from the URL rather than assuming a folder route.
+const locale = getLangFromUrl(Astro.url);
+const t = useTranslations(locale);
+const translatePath = useTranslatedPath(locale);
+---
+
+<BaseLayout title={t('notFound.heading')} description={t('notFound.body')} noindex>
+  <section class="mx-auto flex max-w-2xl flex-col items-center px-4 py-24 text-center sm:px-6">
+    <h1 class="font-display text-4xl text-paper-50">{t('notFound.heading')}</h1>
+    <p class="mt-4 text-stone-400">{t('notFound.body')}</p>
+    <div class="mt-8 flex gap-4">
+      <a
+        href={translatePath('/')}
+        class="rounded bg-terracotta-600 px-6 py-3 text-sm font-medium text-paper-50 hover:bg-terracotta-700"
+      >
+        {t('notFound.home')}
+      </a>
+      <a
+        href={translatePath('/trips/')}
+        class="rounded border border-ink-600 px-6 py-3 text-sm text-paper-100 hover:border-sand-300"
+      >
+        {t('notFound.trips')}
+      </a>
+    </div>
+  </section>
+</BaseLayout>
