@@ -14,7 +14,10 @@ interface SendEmailArgs {
 export async function sendTransactionalEmail({ apiKey, to, replyTo, subject, html }: SendEmailArgs) {
   const resend = new Resend(apiKey);
   const { error } = await resend.emails.send({
-    from: 'Cartacuba Tours & Travels <notifications@cartacubatours.example>',
+    // Resend's shared test sender — works with no domain verification, but
+    // can only deliver to the email address the Resend account signed up
+    // with. Swap for a verified custom domain before real launch.
+    from: 'Cartacuba Tours & Travels <onboarding@resend.dev>',
     to,
     replyTo,
     subject,
