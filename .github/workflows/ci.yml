@@ -10,68 +10,120 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+# Two independent Astro projects live in this repo: the root Cartacuba
+# Tours & Travels site, and sites/nature-and-arts/ (cloned from it as a
+# template — see its README). Every job below runs once per project via
+# this matrix rather than as separate duplicated jobs, so a new sibling
+# site only needs an entry added here, not a new set of jobs.
 jobs:
   typecheck:
-    name: Typecheck
+    name: Typecheck (${{ matrix.name }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: nature-tourism
+            dir: .
+          - name: nature-and-arts
+            dir: sites/nature-and-arts
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
       - run: npm ci
+        working-directory: ${{ matrix.dir }}
       - run: npm run typecheck
+        working-directory: ${{ matrix.dir }}
 
   lint:
-    name: Lint
+    name: Lint (${{ matrix.name }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: nature-tourism
+            dir: .
+          - name: nature-and-arts
+            dir: sites/nature-and-arts
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
       - run: npm ci
+        working-directory: ${{ matrix.dir }}
       - run: npm run lint
+        working-directory: ${{ matrix.dir }}
 
   e2e:
-    name: Playwright e2e
+    name: Playwright e2e (${{ matrix.name }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: nature-tourism
+            dir: .
+          - name: nature-and-arts
+            dir: sites/nature-and-arts
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
       - run: npm ci
+        working-directory: ${{ matrix.dir }}
       - run: npx playwright install --with-deps chromium
+        working-directory: ${{ matrix.dir }}
       - run: npm run build
+        working-directory: ${{ matrix.dir }}
       - run: npm run test:e2e
+        working-directory: ${{ matrix.dir }}
         env:
           CI: true
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: playwright-report-${{ matrix.name }}
+          path: ${{ matrix.dir }}/playwright-report/
           retention-days: 7
 
   lighthouse:
-    name: Lighthouse CI budget gate
+    name: Lighthouse CI budget gate (${{ matrix.name }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: nature-tourism
+            dir: .
+          - name: nature-and-arts
+            dir: sites/nature-and-arts
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
       - run: npm ci
+        working-directory: ${{ matrix.dir }}
       - run: npm run build
+        working-directory: ${{ matrix.dir }}
       - run: npx @lhci/cli@0.15.x autorun
+        working-directory: ${{ matrix.dir }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: lighthouse-reports
-          path: .lighthouseci/
+          name: lighthouse-reports-${{ matrix.name }}
+          path: ${{ matrix.dir }}/.lighthouseci/
           retention-days: 14

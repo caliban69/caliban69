@@ -14,8 +14,8 @@ module.exports = {
       url: [
         'http://localhost:4322/en/',
         'http://localhost:4322/en/trips/',
-        'http://localhost:4322/en/trips/zapata-swamp-half-day-birding/',
-        'http://localhost:4322/en/trips/cuba-endemics-7-day-birding-tour/',
+        'http://localhost:4322/en/trips/fine-arts-museum-fabelo-studio/',
+        'http://localhost:4322/en/trips/jazz-fac-guarida-night/',
       ],
       numberOfRuns: 2,
       settings: {
