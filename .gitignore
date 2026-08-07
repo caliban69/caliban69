@@ -31,3 +31,6 @@ npm-debug.log*
 
 # wrangler
 .wrangler/
+
+# local deploy helper (contains the Cloudflare API token — never commit)
+deploy.bat
