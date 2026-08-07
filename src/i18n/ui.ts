@@ -50,7 +50,7 @@ export const ui = {
 
     'trips.index.heading': 'Our trips',
     'trips.index.intro':
-      'A closer-to-home daytrip and two flagship multiday tours, with more itineraries in development.',
+      'Two closer-to-home daytrips and two flagship multiday tours, with more itineraries in development.',
     'trips.card.duration': 'Duration',
     'trips.card.price': 'Price',
     'trips.card.priceFrom': 'From',
@@ -187,7 +187,7 @@ export const ui = {
 
     'trips.index.heading': 'Nuestros viajes',
     'trips.index.intro':
-      'Una excursión de un día y dos viajes insignia de varios días, con más itinerarios en desarrollo.',
+      'Dos excursiones de un día y dos viajes insignia de varios días, con más itinerarios en desarrollo.',
     'trips.card.duration': 'Duración',
     'trips.card.price': 'Precio',
     'trips.card.priceFrom': 'Desde',
