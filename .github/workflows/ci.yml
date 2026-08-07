@@ -15,6 +15,19 @@ concurrency:
 # template — see its README). Every job below runs once per project via
 # this matrix rather than as separate duplicated jobs, so a new sibling
 # site only needs an entry added here, not a new set of jobs.
+#
+# Known quirk: when a nested project (sites/nature-and-arts) is checked
+# out inside a directory that also has an ancestor package.json (the
+# root project's), Astro's internal tsconfig resolution for `astro sync`
+# mis-detects that ancestor as the workspace root and tries to resolve
+# `astro/tsconfigs/strict` from there instead of the nested project's own
+# node_modules — failing with "Tsconfig not found astro/tsconfigs/strict"
+# if the root project's dependencies aren't installed too. Root-caused
+# and reproduced locally; the fix is simply to always have root
+# node_modules present alongside the nested project's, hence the
+# unconditional root `npm ci` below even for jobs whose real work is in
+# sites/nature-and-arts. This affects local dev the same way — see the
+# note in sites/nature-and-arts/README.md.
 jobs:
   typecheck:
     name: Typecheck (${{ matrix.name }})
@@ -33,7 +46,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            ${{ matrix.dir }}/package-lock.json
+      - name: Install root dependencies (see workaround note above)
+        if: matrix.dir != '.'
+        run: npm ci
       - run: npm ci
         working-directory: ${{ matrix.dir }}
       - run: npm run typecheck
@@ -56,7 +74,9 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            ${{ matrix.dir }}/package-lock.json
       - run: npm ci
         working-directory: ${{ matrix.dir }}
       - run: npm run lint
@@ -79,7 +99,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            ${{ matrix.dir }}/package-lock.json
+      - name: Install root dependencies (see workaround note above)
+        if: matrix.dir != '.'
+        run: npm ci
       - run: npm ci
         working-directory: ${{ matrix.dir }}
       - run: npx playwright install --with-deps chromium
@@ -114,7 +139,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            ${{ matrix.dir }}/package-lock.json
+      - name: Install root dependencies (see workaround note above)
+        if: matrix.dir != '.'
+        run: npm ci
       - run: npm ci
         working-directory: ${{ matrix.dir }}
       - run: npm run build

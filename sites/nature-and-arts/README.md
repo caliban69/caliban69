@@ -43,6 +43,24 @@ cp .env.example .env   # fill in real values, see below
 npm run dev
 ```
 
+**Known quirk — also run `npm install` at the repo root at least once.**
+Because this project is nested inside a directory that has its own
+`package.json` (the root Cartacuba Tours & Travels site), Astro's internal
+tsconfig resolution (used by `astro check`/`astro sync`) mis-detects that
+ancestor as the workspace root and fails with `Tsconfig not found
+astro/tsconfigs/strict` if nothing is installed there. This isn't about
+using anything from the root project — installing it just needs to exist
+on disk. Run once from the repo root:
+
+```bash
+cd ../..
+npm install
+cd sites/nature-and-arts
+```
+
+If you ever see that "Tsconfig not found" error, this is almost certainly
+why — check that `node_modules/` exists at the repo root, not just here.
+
 Open http://localhost:4321 — it redirects to `/en/`.
 
 ### Environment variables

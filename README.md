@@ -8,9 +8,11 @@ Astro Cloudflare adapter).
 This repo also hosts sibling brand sites cloned from this project as a
 template — see `sites/nature-and-arts/` for the Cartacuba Nature & Arts
 site (its own independent Astro project, deployed as its own Cloudflare
-Worker; has its own README with setup/deploy instructions). CI currently
-only runs against this root project — `sites/*` projects need their own
-GitHub Actions workflow wiring, not yet done.
+Worker; has its own README with setup/deploy instructions, including a
+build quirk caused by it being nested inside this project — run
+`npm install` here at the repo root at least once even if you only work
+on the nested site). CI runs both projects as a matrix in
+`.github/workflows/ci.yml`.
 
 This is an MVP build stage: **no live payment or booking-vendor integration
 is wired in yet.** The daytrip and multiday trip pages ship with a static
