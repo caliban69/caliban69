@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+export const prerender = true;
+
+const t = useTranslations('es');
+---
+
+<BaseLayout title={t('footer.cookies')} description="Política de cookies de Cartacuba Nature & Arts.">
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <h1 class="font-display text-3xl text-paper-50">Política de Cookies</h1>
+    <p class="mt-2 text-sm text-stone-500">Última actualización: 31 de julio de 2026</p>
+
+    <div class="mt-8 flex flex-col gap-8 text-stone-400">
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Cómo funciona el consentimiento aquí</h2>
+        <p class="mt-2">
+          Nuestro banner de cookies bloquea los scripts no esenciales hasta que usted acepta — no
+          solo los divulga después del hecho. La funcionalidad esencial (mitigación de bots vía
+          Cloudflare Turnstile y, una vez integrado en la Fase 2, el propio widget de
+          reserva/pago) funciona independientemente de su elección, de la misma manera que lo
+          haría un sistema de inicio de sesión; no es rastreo.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Qué almacenamos actualmente</h2>
+        <ul class="mt-2 list-inside list-disc">
+          <li>
+            <code>cc-consent</code> (localStorage) — recuerda su elección de aceptar/rechazar para
+            este banner. Esencial para el propio mecanismo de consentimiento.
+          </li>
+        </ul>
+        <p class="mt-2">
+          Actualmente no utilizamos cookies de análisis ni de marketing de ningún tipo. Si
+          agregamos alguna en el futuro, se nombrará aquí y quedará sujeta a este mismo banner de
+          consentimiento antes de cargarse — nunca habilitada por defecto.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Cookies de terceros (Fase 2)</h2>
+        <p class="mt-2">
+          Una vez que se integren un proveedor de pagos (Stripe) y un proveedor de widget de
+          reserva (Checkfront o una alternativa confirmada), sus propias cookies podrían aplicarse
+          durante una sesión activa de pago o reserva — se documentarán en nuestra
+          <a href="/es/privacy/" class="text-terracotta-400 underline underline-offset-2 hover:decoration-2">Política de Privacidad</a>
+          una vez integradas.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

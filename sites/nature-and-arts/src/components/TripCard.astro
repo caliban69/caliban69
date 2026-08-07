@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
+interface Props {
+  trip: CollectionEntry<'trips'>;
+}
+
+const { trip } = Astro.props;
+const locale = getLangFromUrl(Astro.url);
+const t = useTranslations(locale);
+const translatePath = useTranslatedPath(locale);
+
+// id looks like "en/daytrip-example.md" — strip locale + extension for the slug.
+const slug = trip.id.split('/').pop()!;
+const href = translatePath(`/trips/${slug}/`);
+
+const difficultyLabel = {
+  easy: t('common.difficulty.easy'),
+  moderate: t('common.difficulty.moderate'),
+  challenging: t('common.difficulty.challenging'),
+}[trip.data.difficulty];
+---
+
+<a
+  href={href}
+  class="group flex flex-col overflow-hidden rounded-lg border border-ink-700 bg-ink-900 transition-colors hover:border-terracotta-500"
+>
+  <div class="aspect-[4/3] overflow-hidden bg-ink-800">
+    <img
+      src={trip.data.heroImage.src}
+      alt={trip.data.heroImage.alt}
+      loading="lazy"
+      decoding="async"
+      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+  </div>
+  <div class="flex flex-1 flex-col gap-3 p-5">
+    <span class="text-xs uppercase tracking-wide text-sand-300">
+      {trip.data.type === 'daytrip' ? t('home.featured.daytripLabel') : t('home.featured.multidayLabel')}
+    </span>
+    <h3 class="font-display text-xl text-paper-50">{trip.data.title}</h3>
+    <p class="text-sm text-stone-400">{trip.data.summary}</p>
+    <dl class="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+      <dt class="text-stone-500">{t('trips.card.duration')}</dt>
+      <dd class="text-paper-100">{trip.data.duration}</dd>
+      <dt class="text-stone-500">{t('trips.card.price')}</dt>
+      <dd class="text-paper-100">
+        {trip.data.priceMode === 'from' ? `${t('trips.card.priceFrom')} ` : ''}${trip.data.price}
+      </dd>
+      <dt class="text-stone-500">{t('trips.card.difficulty')}</dt>
+      <dd class="text-paper-100">{difficultyLabel}</dd>
+    </dl>
+    <span class="mt-auto pt-3 text-sm font-medium text-terracotta-400 group-hover:underline">
+      {t('home.featured.viewTrip')} →
+    </span>
+  </div>
+</a>

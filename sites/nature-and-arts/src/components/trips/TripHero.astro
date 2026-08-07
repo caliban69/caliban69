@@ -1,0 +1,60 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+interface Props {
+  trip: CollectionEntry<'trips'>;
+}
+const { trip } = Astro.props;
+const locale = getLangFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const difficultyLabel = {
+  easy: t('common.difficulty.easy'),
+  moderate: t('common.difficulty.moderate'),
+  challenging: t('common.difficulty.challenging'),
+}[trip.data.difficulty];
+---
+
+<section class="relative">
+  <div class="aspect-[16/9] w-full overflow-hidden bg-ink-800 sm:aspect-[21/9]">
+    <img
+      src={trip.data.heroImage.src}
+      alt={trip.data.heroImage.alt}
+      class="h-full w-full object-cover"
+      decoding="async"
+    />
+  </div>
+  <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+    {
+      trip.data.isSampleContent && (
+        <p class="mb-4 inline-block rounded border border-sand-400/40 bg-ink-900 px-3 py-1 text-xs text-sand-300">
+          {t('trip.sampleContentNotice')}
+        </p>
+      )
+    }
+    <h1 class="font-display text-3xl text-paper-50 sm:text-4xl">{trip.data.title}</h1>
+    <p class="mt-3 max-w-2xl text-stone-400">{trip.data.summary}</p>
+
+    <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-t border-ink-700 pt-6 text-sm sm:grid-cols-4">
+      <div>
+        <dt class="text-stone-500">{t('trips.card.duration')}</dt>
+        <dd class="mt-1 text-paper-100">{trip.data.duration}</dd>
+      </div>
+      <div>
+        <dt class="text-stone-500">{t('trips.card.price')}</dt>
+        <dd class="mt-1 text-paper-100">
+          {trip.data.priceMode === 'from' ? `${t('trips.card.priceFrom')} ` : ''}${trip.data.price}
+        </dd>
+      </div>
+      <div>
+        <dt class="text-stone-500">{t('trips.card.groupSize')}</dt>
+        <dd class="mt-1 text-paper-100">{trip.data.groupSizeCap}</dd>
+      </div>
+      <div>
+        <dt class="text-stone-500">{t('trips.card.difficulty')}</dt>
+        <dd class="mt-1 text-paper-100">{difficultyLabel}</dd>
+      </div>
+    </dl>
+  </div>
+</section>

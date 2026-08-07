@@ -5,6 +5,13 @@ Cuban Nature Specialists*. Built with [Astro](https://astro.build), Tailwind
 CSS, and Preact islands, deployed to Cloudflare Workers (via the official
 Astro Cloudflare adapter).
 
+This repo also hosts sibling brand sites cloned from this project as a
+template — see `sites/nature-and-arts/` for the Cartacuba Nature & Arts
+site (its own independent Astro project, deployed as its own Cloudflare
+Worker; has its own README with setup/deploy instructions). CI currently
+only runs against this root project — `sites/*` projects need their own
+GitHub Actions workflow wiring, not yet done.
+
 This is an MVP build stage: **no live payment or booking-vendor integration
 is wired in yet.** The daytrip and multiday trip pages ship with a static
 lead-capture inquiry form (see `// PHASE 2` comments in

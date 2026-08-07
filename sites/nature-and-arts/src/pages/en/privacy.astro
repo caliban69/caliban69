@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+export const prerender = true;
+
+const t = useTranslations('en');
+---
+
+<BaseLayout title={t('footer.privacy')} description="Privacy policy for Cartacuba Nature & Arts.">
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <p class="inline-block rounded border border-sand-400/40 bg-ink-900 px-3 py-1 text-xs text-sand-300">
+      Sample content — placeholder policy for MVP review; to be reviewed by qualified counsel
+      before launch.
+    </p>
+    <h1 class="mt-4 font-display text-3xl text-paper-50">Privacy Policy</h1>
+    <p class="mt-2 text-sm text-stone-500">Last updated: 31 July 2026</p>
+
+    <div class="mt-8 flex flex-col gap-8 text-stone-400">
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Who we are</h2>
+        <p class="mt-2">
+          Cartacuba Nature & Arts ("we", "us"). Contact: fcg69.cloud.gcp@gmail.com. [Business
+          address — placeholder, to be confirmed.]
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">What we collect</h2>
+        <p class="mt-2">
+          Contact form submissions (name, email, category, message) and booking-inquiry form
+          submissions (name, email, phone, trip preferences, traveler count). We do not collect
+          payment card details on this site — no payment is processed here.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Data processors we use</h2>
+        <ul class="mt-2 list-inside list-disc">
+          <li><strong>Resend</strong> — delivers contact-form and booking-inquiry emails to us.</li>
+          <li>
+            <strong>Cloudflare</strong> — hosting, bot-mitigation (Turnstile), and rate limiting for
+            this site.
+          </li>
+          <li>
+            <strong>Stripe</strong> — planned Phase 2 payment processor for the daytrip; not yet
+            integrated on this site.
+          </li>
+          <li>
+            <strong>Checkfront (or confirmed alternative)</strong> — planned Phase 2 booking-widget
+            vendor for the multiday tour; not yet integrated, vendor not yet finalized.
+          </li>
+        </ul>
+        <p class="mt-2">
+          We do not run analytics or marketing pixels on this site. If that changes, this policy
+          will name the tool before it is added.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Retention</h2>
+        <p class="mt-2">
+          Contact-form and booking-inquiry submissions are retained for up to 24 months to allow
+          for booking follow-up and support, then deleted. You may request earlier deletion at any
+          time by emailing us.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Your rights</h2>
+        <p class="mt-2">
+          Depending on your location, you may have rights to access, correct, or delete your
+          personal data, and to object to or restrict its processing. Contact us to exercise these
+          rights.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Cookies</h2>
+        <p class="mt-2">
+          See our <a href="/en/cookies/" class="text-terracotta-400 underline underline-offset-2 hover:decoration-2">Cookie Policy</a>
+          for details on what we store and how consent works.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

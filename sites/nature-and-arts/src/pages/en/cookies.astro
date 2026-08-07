@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+export const prerender = true;
+
+const t = useTranslations('en');
+---
+
+<BaseLayout title={t('footer.cookies')} description="Cookie policy for Cartacuba Nature & Arts.">
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <h1 class="font-display text-3xl text-paper-50">Cookie Policy</h1>
+    <p class="mt-2 text-sm text-stone-500">Last updated: 31 July 2026</p>
+
+    <div class="mt-8 flex flex-col gap-8 text-stone-400">
+      <div>
+        <h2 class="font-display text-lg text-paper-50">How consent works here</h2>
+        <p class="mt-2">
+          Our cookie banner blocks non-essential scripts until you accept — it doesn't just
+          disclose them after the fact. Essential functionality (bot mitigation via Cloudflare
+          Turnstile, and — once integrated in Phase 2 — the booking/payment widget itself) runs
+          regardless of your choice, the same way a login system would; it isn't tracking.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">What we currently store</h2>
+        <ul class="mt-2 list-inside list-disc">
+          <li>
+            <code>cc-consent</code> (localStorage) — remembers your accept/reject choice for this
+            banner. Essential to the consent mechanism itself.
+          </li>
+        </ul>
+        <p class="mt-2">
+          We do not currently run analytics or marketing cookies of any kind. If we add one in the
+          future, it will be named here and gated behind this same consent banner before it loads
+          — never enabled by default.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-lg text-paper-50">Third-party cookies (Phase 2)</h2>
+        <p class="mt-2">
+          Once a payment vendor (Stripe) and booking-widget vendor (Checkfront or a confirmed
+          alternative) are integrated, their own cookies may apply during an active checkout or
+          booking session — those are documented in our
+          <a href="/en/privacy/" class="text-terracotta-400 underline underline-offset-2 hover:decoration-2">Privacy Policy</a>
+          once wired in.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

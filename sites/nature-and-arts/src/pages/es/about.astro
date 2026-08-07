@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+export const prerender = true;
+
+const t = useTranslations('es');
+---
+
+<BaseLayout title={t('about.heading')} description={t('home.sustainability.body')}>
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <p class="inline-block rounded border border-sand-400/40 bg-ink-900 px-3 py-1 text-xs text-sand-300">
+      {t('trip.sampleContentNotice')}
+    </p>
+    <h1 class="mt-4 font-display text-3xl text-paper-50">{t('about.heading')}</h1>
+
+    <div class="mt-10">
+      <h2 class="font-display text-xl text-terracotta-400">{t('about.credibility.heading')}</h2>
+      <p class="mt-3 text-stone-400">
+        Cartacuba Nature & Arts es la marca de viajes de arte y academia de la empresa matriz
+        Cartacuba, construida sobre relaciones personales con artistas, músicos y espacios
+        culturales activos de La Habana — no un recorrido turístico estándar con una parada en la
+        tienda de regalos de un museo.
+      </p>
+      <p class="mt-3 text-sm text-stone-500">
+        [Biografía de muestra — Fred debe proporcionar la biografía real del operador, sus
+        credenciales y foto antes del lanzamiento.]
+      </p>
+    </div>
+
+    <div class="mt-10">
+      <h2 class="font-display text-xl text-terracotta-400">{t('about.sustainability.heading')}</h2>
+      <p class="mt-3 text-stone-400">
+        Mantenemos los grupos pequeños y trabajamos directamente con los artistas, músicos y
+        espacios independientes, en lugar de canalizar las reservas a través de agencias u
+        operadores turísticos estatales — para que una reserva apoye a la persona cuyo trabajo o
+        actuación motivó tu visita.
+      </p>
+    </div>
+
+    <div class="mt-10">
+      <h2 class="font-display text-xl text-terracotta-400">{t('about.ecotourism.heading')}</h2>
+      <p class="mt-3 text-stone-400">
+        Cada experiencia tiene un cupo limitado a un puñado de personas — el tipo de acceso, ritmo
+        y conversación que solo ocurre en un espacio pequeño, no en un autobús.
+      </p>
+      <p class="mt-3 text-sm text-stone-500">
+        [Marcador de posición de muestra — confirmar con Fred el tamaño final de los grupos y
+        cualquier acuerdo de participación con los artistas mencionados antes del lanzamiento.]
+      </p>
+    </div>
+  </section>
+</BaseLayout>

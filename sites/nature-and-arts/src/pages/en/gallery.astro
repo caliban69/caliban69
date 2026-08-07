@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GalleryLightbox from '../../components/GalleryLightbox.tsx';
+import { useTranslations } from '../../i18n/utils';
+
+export const prerender = true;
+
+const t = useTranslations('en');
+const trips = await getCollection('trips', ({ id }) => id.startsWith('en/'));
+const images = trips.flatMap((trip) => [trip.data.heroImage, ...trip.data.gallery]);
+---
+
+<BaseLayout title={t('gallery.heading')} description={t('gallery.intro')}>
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <h1 class="font-display text-3xl text-paper-50">{t('gallery.heading')}</h1>
+    <p class="mt-3 max-w-2xl text-stone-400">{t('gallery.intro')}</p>
+
+    <div class="mt-10">
+      <GalleryLightbox client:visible images={images} locale="en" />
+    </div>
+  </section>
+</BaseLayout>
