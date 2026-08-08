@@ -14,7 +14,7 @@ module.exports = {
       url: [
         'http://localhost:4322/en/',
         'http://localhost:4322/en/trips/',
-        'http://localhost:4322/en/trips/fine-arts-museum-fabelo-studio/',
+        'http://localhost:4322/en/trips/fine-arts-museum-private-studio-visit/',
         'http://localhost:4322/en/trips/jazz-fac-guarida-night/',
       ],
       numberOfRuns: 2,

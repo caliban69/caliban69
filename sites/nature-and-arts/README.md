@@ -94,12 +94,14 @@ content** (`isSampleContent: true` in frontmatter) and placeholder SVG
 illustrations in `public/images/placeholders/` in place of real photography —
 replace both with real copy/images before launch.
 
-**Named real people (Roberto Fabelo, "Dennis Fernández") appear in this
-sample content.** Do not launch either experience commercially until Fred
-has a confirmed arrangement with each named individual to be booked and
-named publicly — see the `isSampleContent` notice at the bottom of each
-trip's Markdown body for specifics, including a name/affiliation
-discrepancy flagged for the jazz-class trip.
+**The jazz-class trip names a real person ("Dennis Fernández").** Do not
+launch it commercially until Fred has a confirmed arrangement with him to
+be booked and named publicly — see the `isSampleContent` notice at the
+bottom of its Markdown body, including a name/affiliation discrepancy
+flagged there. The fine-arts trip originally named Roberto Fabelo the same
+way; his real name has been swapped for a mock-up ("Mateo Aguilar") until
+a real, confirmed artist is in place — see that trip's notice before
+replacing the mock-up name.
 
 ## Testing
 

@@ -38,8 +38,8 @@ test.describe('navigation', () => {
 });
 
 test.describe('experience pages', () => {
-  test('fine arts museum & Fabelo studio page renders with a Reserve CTA', async ({ page }) => {
-    await page.goto('/en/trips/fine-arts-museum-fabelo-studio/');
+  test('fine arts museum & private studio visit page renders with a Reserve CTA', async ({ page }) => {
+    await page.goto('/en/trips/fine-arts-museum-private-studio-visit/');
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Havana Fine Arts Day');
     await expect(page.getByRole('button', { name: 'Reserve this experience' })).toBeVisible();
   });

@@ -1,7 +1,7 @@
 ---
 type: daytrip
-title: "Havana Fine Arts Day: Museo Nacional de Bellas Artes & Roberto Fabelo's Studio"
-summary: "A full day through Cuba's most comprehensive art collection, closing with a rare private visit to the studio of internationally exhibited surrealist Roberto Fabelo."
+title: "Havana Fine Arts Day: Museo Nacional de Bellas Artes & a Private Studio Visit"
+summary: "A full day through Cuba's most comprehensive art collection, closing with a rare private visit to the studio of a renowned Cuban surrealist artist (mock-up name — real artist pending confirmation)."
 heroImage:
   src: "/images/placeholders/hero-fine-arts-museum-fabelo.svg"
   alt: "Placeholder illustration representing a fine arts museum and private artist studio visit in Havana"
@@ -14,7 +14,7 @@ meetingPoint: "Pickup from your Havana accommodation (exact meeting point confir
 included:
   - "Entrance to Museo Nacional de Bellas Artes (both the Cuban Art and Universal Art buildings)"
   - "Specialist art guide"
-  - "Private studio visit with Roberto Fabelo (subject to the artist's availability — see notice below)"
+  - "Private studio visit with Mateo Aguilar* (subject to confirmation — see notice below)"
 excluded:
   - "Transportation to/from the meeting point"
   - "Meals"
@@ -23,9 +23,9 @@ highlights:
   - "Palacio de Bellas Artes — the most comprehensive collection of Cuban art in the world"
   - "Works by Wifredo Lam and Cuba's other major 20th-century masters"
   - "Palacio del Centro Asturiano — the museum's Universal Art collection"
-  - "A private conversation and studio visit with Roberto Fabelo, one of Cuba's most exhibited living artists"
+  - "A private conversation and studio visit with Mateo Aguilar*, an acclaimed Cuban surrealist artist"
 cancellationPolicy: "Full refund up to 72 hours before the visit; 50% refund up to 24 hours before; no refund thereafter. Sample policy — to be reviewed by Fred before launch."
-stripePriceEnvVar: "STRIPE_FINEARTS_FABELO_PRICE_ID"
+stripePriceEnvVar: "STRIPE_FINEARTS_STUDIO_PRICE_ID"
 gallery:
   - src: "/images/placeholders/gallery-1.svg"
     alt: "Placeholder illustration representing the Museo Nacional de Bellas Artes collection"
@@ -46,21 +46,20 @@ unhurried pace, with a specialist guide framing the pieces that define
 Cuban art history.
 
 The day closes with something far rarer: a private visit to the studio
-of Roberto Fabelo. Born in 1950 in Guáimaro, Camagüey, and trained at
-the National Art School and the Higher Institute of Art in Havana,
-Fabelo is one of Cuba's most celebrated living artists — known for
-surrealist paintings, drawings, and sculpture that blend fantasy,
-absurdist humor, and social commentary, including *Viaje Fantástico*,
-one of the largest non-memorial statues in Havana. He has exhibited
-internationally for decades and received Cuba's Alejo Carpentier medal
-for cultural achievement. Seeing his actual working space, in
-conversation with the artist himself, is an entirely different
-experience from seeing his work on a gallery wall.
+of *Mateo Aguilar (mock-up name)*, envisioned as an established,
+internationally exhibited Cuban surrealist artist working in the
+tradition of the island's most celebrated living painters and
+sculptors. Seeing an artist's actual working space, in conversation with
+them directly, is an entirely different experience from seeing their
+work on a gallery wall.
 
 **Sample content notice:** this itinerary text is representative
-placeholder copy for MVP review. Critically, the studio visit with
-Roberto Fabelo requires a confirmed arrangement with the artist himself
-before this experience can be sold or advertised — using his name
-commercially without that agreement in place is not something to launch
-with. Final pricing, duration, and cancellation policy are also pending
-Fred's confirmation.
+placeholder copy for MVP review. *"Mateo Aguilar" is a mock-up name
+standing in for a real artist that has not yet been finalized or
+confirmed* — the original brief referenced Roberto Fabelo by name, but
+using a real person's name and reputation commercially requires his
+direct agreement, which is not yet in place. Do not treat "Mateo
+Aguilar" as a real person or publish this page as-is; replace the name,
+and this notice, once Fred has a confirmed artist and their consent to
+be named and booked. Final pricing, duration, and cancellation policy
+are also pending Fred's confirmation.
