@@ -10,6 +10,14 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+# Least-privilege default: this workflow only ever reads the repo and
+# uploads its own artifacts, so the auto-issued GITHUB_TOKEN gets no more
+# than that — a defense-in-depth measure in case any action in the
+# dependency chain is ever compromised (a real, repeated supply-chain
+# attack pattern against GitHub Actions).
+permissions:
+  contents: read
+
 # Two independent Astro projects live in this repo: the root Cartacuba
 # Tours & Travels site, and sites/nature-and-arts/ (cloned from it as a
 # template — see its README). Every job below runs once per project via
