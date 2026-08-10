@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    groups:
+      astro:
+        patterns:
+          - 'astro'
+          - '@astrojs/*'
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: 'npm'
+    directory: '/sites/nature-and-arts'
+    schedule:
+      interval: 'weekly'
+    groups:
+      astro:
+        patterns:
+          - 'astro'
+          - '@astrojs/*'
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'

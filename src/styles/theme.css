@@ -1,0 +1,69 @@
+/* PALETTE: provisional — revisit with Fred before final brand lock */
+
+/*
+ * Design tokens — single source of truth for color, spacing scale and
+ * typography. Every component must reference a token (a Tailwind utility
+ * generated from the values below, or a var(--color-*) custom property)
+ * rather than a literal hex value or magic number. To retint the brand,
+ * change values here only.
+ *
+ * Direction: minimalist, black-dominant base with earth-tone accents used
+ * sparingly for CTAs, highlights and photo framing — see the design brief.
+ */
+
+@import 'tailwindcss';
+
+@theme {
+  /* --- Base: black / near-black, warm-neutral, not pure #000 --- */
+  --color-ink-950: #0b0a08;
+  --color-ink-900: #14120f;
+  --color-ink-800: #1e1b17;
+  --color-ink-700: #2b2721;
+  --color-ink-600: #3d372e;
+
+  /* --- Paper: warm off-whites for text-on-dark and light surfaces --- */
+  --color-paper-50: #faf8f3;
+  --color-paper-100: #f2eee4;
+  --color-paper-200: #e4ddcc;
+
+  /* --- Stone: muted neutral text/borders, readable on both bases ---
+   * stone-500 is tuned to clear 4.5:1 against both ink-950 and ink-900
+   * (WCAG AA for small text) — don't darken without rechecking contrast.
+   */
+  --color-stone-400: #a49c8c;
+  --color-stone-500: #948a76;
+
+  /* --- Earth-tone accents (sparing use: CTAs, highlights, framing) ---
+   * terracotta-500/400 are for text/links on dark backgrounds only.
+   * terracotta-600/700 are the button-background pair (paper-50 text on
+   * terracotta-600 clears 4.5:1; -700 is its hover/darken state) — don't
+   * use -500 as a button fill, it fails AA contrast with paper-50 text.
+   */
+  --color-terracotta-400: #d17a4a;
+  --color-terracotta-500: #bd5f2c;
+  --color-terracotta-600: #9c4c22;
+  --color-terracotta-700: #833f1c;
+
+  --color-olive-400: #838a5c;
+  --color-olive-500: #666d43;
+  --color-olive-600: #4f5433;
+
+  --color-sand-300: #dcc99f;
+  --color-sand-400: #cbb182;
+
+  /* --- Semantic state colors (kept in the earth palette family) --- */
+  --color-success-500: var(--color-olive-500);
+  --color-error-500: #b3492f;
+
+  /* --- Typography ---
+   * System stacks only (no webfont host) so the strict CSP in §7 doesn't
+   * need a fonts.googleapis.com/fonts.gstatic.com allow-list entry.
+   */
+  --font-display: ui-serif, Georgia, 'Times New Roman', serif;
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* --- Spacing scale additions (generous "black-space") --- */
+  --spacing-section: 8rem;
+  --spacing-section-sm: 4rem;
+}

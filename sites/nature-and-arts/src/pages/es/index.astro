@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeView from '../../components/HomeView.astro';
+import { useTranslations } from '../../i18n/utils';
+
+export const prerender = true;
+
+const t = useTranslations('es');
+---
+
+<BaseLayout title={t('brand.name')} description={t('home.sustainability.body')}>
+  <HomeView />
+</BaseLayout>

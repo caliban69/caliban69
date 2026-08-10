@@ -1,0 +1,167 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least-privilege default: this workflow only ever reads the repo and
+# uploads its own artifacts, so the auto-issued GITHUB_TOKEN gets no more
+# than that — a defense-in-depth measure in case any action in the
+# dependency chain is ever compromised (a real, repeated supply-chain
+# attack pattern against GitHub Actions).
+permissions:
+  contents: read
+
+# Two independent Astro projects live in this repo: the root Cartacuba
+# Tours & Travels site, and sites/nature-and-arts/ (cloned from it as a
+# template — see its README). Every job below runs once per project via
+# this matrix rather than as separate duplicated jobs, so a new sibling
+# site only needs an entry added here, not a new set of jobs.
+#
+# Known quirk: when a nested project (sites/nature-and-arts) is checked
+# out inside a directory that also has an ancestor package.json (the
+# root project's), Astro's internal tsconfig resolution for `astro sync`
+# mis-detects that ancestor as the workspace root and tries to resolve
+# `astro/tsconfigs/strict` from there instead of the nested project's own
+# node_modules — failing with "Tsconfig not found astro/tsconfigs/strict"
+# if the root project's dependencies aren't installed too. Root-caused
+# and reproduced locally; the fix is simply to always have root
+# node_modules present alongside the nested project's, hence the
+# unconditional root `npm ci` below even for jobs whose real work is in
+# sites/nature-and-arts. This affects local dev the same way — see the
+# note in sites/nature-and-arts/README.md.
+jobs:
+  typecheck:
+    name: Typecheck (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: nature-tourism
+            dir: .
+          - name: nature-and-arts
+            dir: sites/nature-and-arts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            ${{ matrix.dir }}/package-lock.json
+      - name: Install root dependencies (see workaround note above)
+        if: matrix.dir != '.'
+        run: npm ci
+      - run: npm ci
+        working-directory: ${{ matrix.dir }}
+      - run: npm run typecheck
+        working-directory: ${{ matrix.dir }}
+
+  lint:
+    name: Lint (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: nature-tourism
+            dir: .
+          - name: nature-and-arts
+            dir: sites/nature-and-arts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            ${{ matrix.dir }}/package-lock.json
+      - run: npm ci
+        working-directory: ${{ matrix.dir }}
+      - run: npm run lint
+        working-directory: ${{ matrix.dir }}
+
+  e2e:
+    name: Playwright e2e (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: nature-tourism
+            dir: .
+          - name: nature-and-arts
+            dir: sites/nature-and-arts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            ${{ matrix.dir }}/package-lock.json
+      - name: Install root dependencies (see workaround note above)
+        if: matrix.dir != '.'
+        run: npm ci
+      - run: npm ci
+        working-directory: ${{ matrix.dir }}
+      - run: npx playwright install --with-deps chromium
+        working-directory: ${{ matrix.dir }}
+      - run: npm run build
+        working-directory: ${{ matrix.dir }}
+      - run: npm run test:e2e
+        working-directory: ${{ matrix.dir }}
+        env:
+          CI: true
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report-${{ matrix.name }}
+          path: ${{ matrix.dir }}/playwright-report/
+          retention-days: 7
+
+  lighthouse:
+    name: Lighthouse CI budget gate (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: nature-tourism
+            dir: .
+          - name: nature-and-arts
+            dir: sites/nature-and-arts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            ${{ matrix.dir }}/package-lock.json
+      - name: Install root dependencies (see workaround note above)
+        if: matrix.dir != '.'
+        run: npm ci
+      - run: npm ci
+        working-directory: ${{ matrix.dir }}
+      - run: npm run build
+        working-directory: ${{ matrix.dir }}
+      - run: npx @lhci/cli@0.15.x autorun
+        working-directory: ${{ matrix.dir }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-reports-${{ matrix.name }}
+          path: ${{ matrix.dir }}/.lighthouseci/
+          retention-days: 14

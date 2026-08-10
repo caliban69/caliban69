@@ -1,0 +1,90 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.tsx';
+import { getLangFromUrl, useTranslatedPath, useTranslations } from '../i18n/utils';
+import { languages, type Locale } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  /** JSON-LD object(s) to embed for this page — Organization is always included. */
+  structuredData?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const { title, description, structuredData = [], noindex = false } = Astro.props;
+
+const locale = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(locale);
+const t = useTranslations(locale);
+const siteUrl = new URL(
+  Astro.url.pathname,
+  import.meta.env.SITE ?? 'https://www.cartacubanatureandarts.example',
+);
+
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Cartacuba Nature & Arts',
+  slogan: "Havana's Art & Culture Specialists.",
+  url: (import.meta.env.SITE as string) ?? 'https://www.cartacubanatureandarts.example',
+};
+
+const allStructuredData = [organizationLd, ...structuredData];
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0b0a08" />
+    <title>{title} · Cartacuba Nature & Arts</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={siteUrl.href} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    {
+      Object.keys(languages).map((code) => (
+        <link rel="alternate" hreflang={code} href={translatePath(Astro.url.pathname, code as Locale)} />
+      ))
+    }
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'es_ES'} />
+    <meta property="og:url" content={siteUrl.href} />
+    <meta property="og:site_name" content="Cartacuba Nature & Arts" />
+    <meta property="og:image" content={new URL('/images/og-image.png', siteUrl).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/images/og-image.png', siteUrl).href} />
+
+    {
+      allStructuredData.map((entry) => (
+        <script type="application/ld+json" is:inline set:html={JSON.stringify(entry)} />
+      ))
+    }
+  </head>
+  <body>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-terracotta-600 focus:px-4 focus:py-2 focus:text-paper-50"
+    >
+      {t('nav.skipToContent')}
+    </a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    <CookieConsent client:idle locale={locale} />
+  </body>
+</html>

@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TripDaytrip from '../../../components/trip-daytrip.astro';
+import TripMultiday from '../../../components/trip-multiday.astro';
+import { tripToJsonLd } from '../../../lib/structuredData';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const trips = await getCollection('trips', ({ id }) => id.startsWith('es/'));
+  return trips.map((trip) => ({
+    params: { slug: trip.id.split('/').pop() },
+    props: { trip },
+  }));
+}
+
+const { trip } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<BaseLayout
+  title={trip.data.title}
+  description={trip.data.summary}
+  structuredData={[tripToJsonLd(trip, canonicalUrl)]}
+>
+  {trip.data.type === 'daytrip' ? <TripDaytrip trip={trip} /> : <TripMultiday trip={trip} />}
+</BaseLayout>

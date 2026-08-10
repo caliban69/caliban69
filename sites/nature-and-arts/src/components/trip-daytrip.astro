@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import TripHero from './trips/TripHero.astro';
+import TripDetails from './trips/TripDetails.astro';
+import ReserveCta from './forms/ReserveCta.tsx';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+interface Props {
+  trip: CollectionEntry<'trips'>;
+}
+
+const { trip } = Astro.props;
+const locale = getLangFromUrl(Astro.url);
+const t = useTranslations(locale);
+const slug = trip.id.split('/').pop()!;
+const { Content } = await render(trip);
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
+---
+
+<TripHero trip={trip} />
+
+<div class="mx-auto max-w-3xl px-4 pt-10 sm:px-6">
+  <div class="prose-invert max-w-none text-paper-100">
+    <Content />
+  </div>
+
+  <div>
+    <h2 class="mt-2 font-display text-xl text-paper-50">{t('trip.meetingPoint')}</h2>
+    <p class="mt-2 text-sm text-stone-400">{trip.data.meetingPoint}</p>
+  </div>
+
+  <ReserveCta
+    client:visible
+    locale={locale}
+    turnstileSiteKey={turnstileSiteKey}
+    tripSlug={slug}
+    tripTitle={trip.data.title}
+  />
+</div>
+
+<TripDetails trip={trip} />

@@ -1,0 +1,6 @@
+---
+// Root redirect to the default locale — i18n routing prefixes every
+// locale including the default (`prefixDefaultLocale: true`), so `/`
+// itself needs an explicit redirect rather than serving content.
+return Astro.redirect('/en/', 302);
+---
