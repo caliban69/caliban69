@@ -14,6 +14,10 @@ build quirk caused by it being nested inside this project — run
 on the nested site). CI runs both projects as a matrix in
 `.github/workflows/ci.yml`.
 
+**See [`COMPLIANCE-AND-SECURITY-BACKLOG.md`](./COMPLIANCE-AND-SECURITY-BACKLOG.md)**
+for the tracked list of open security, IP, GDPR, and AI-disclosure items
+across both sites — kept up to date independently of any chat history.
+
 This is an MVP build stage: **no live payment or booking-vendor integration
 is wired in yet.** The daytrip and multiday trip pages ship with a static
 lead-capture inquiry form (see `// PHASE 2` comments in

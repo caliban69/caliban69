@@ -9,6 +9,11 @@ Built with [Astro](https://astro.build), Tailwind CSS, and Preact islands,
 deployed to Cloudflare Workers (via the official Astro Cloudflare adapter) as
 its **own, separate Worker** — see Deploy below.
 
+**See [`../../COMPLIANCE-AND-SECURITY-BACKLOG.md`](../../COMPLIANCE-AND-SECURITY-BACKLOG.md)**
+for the tracked list of open security, IP, GDPR, and AI-disclosure items —
+this site is named there specifically, including the still-unresolved
+real-person-consent issue on the jazz-class experience.
+
 This is an MVP build stage: **no live payment or booking-vendor integration
 is wired in yet.** The daytrip and multiday trip pages ship with a static
 lead-capture inquiry form (see `// PHASE 2` comments in
