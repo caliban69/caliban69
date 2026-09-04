@@ -17,9 +17,9 @@
     "deploy": "astro build && wrangler deploy --config dist/server/wrangler.json"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.1.7",
-    "@astrojs/preact": "^6.0.2",
-    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/cloudflare": "^14.2.6",
+    "@astrojs/preact": "^6.0.5",
+    "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.1.6",
     "preact": "^10.29.7",
     "resend": "^6.18.1",
